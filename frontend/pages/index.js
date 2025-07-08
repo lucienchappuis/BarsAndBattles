@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import styles from '../styles/Home.module.css'
 import supabase from '../utils/supabase'
 import NewRapper from '../components/NewRapper'
 
