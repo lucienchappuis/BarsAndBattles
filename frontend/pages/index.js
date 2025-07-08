@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react'
-import supabase from '../utils/supabase'
-import NewRapper from '../components/NewRapper'
+// pages/test.tsx
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabaseClient'
 
-export default function Home() {
-  const [rapper, setRapper] = useState([])
-
-  const fetchrappers = async () => {
-    const { data } = await supabase.from('rapper').select('*')
-    setRapper(data)
-  }
+export default function TestPage() {
+  const [rappers, setRappers] = useState([])
 
   useEffect(() => {
-    fetchrappers()
+    supabase.from('Rapper').select('*').then(({ data, error }) => {
+      if (error) console.error('Fehler:', error)
+      else setRappers(data ?? [])
+    })
   }, [])
 
   return (
-    <div>
-      <NewRapper reload={fetchrappers} />
-      {rapper.map((todo) => (
-        <p key={rapper.id}>{rapper.name}</p>
-      ))}
+    <div className="p-4">
+      <h1 className="text-xl font-bold">Alle Rapper</h1>
+      <ul>
+        {rappers.map(r => (
+          <li key={r.id}>{r.name} ({r.herkunft_ort})</li>
+        ))}
+      </ul>
     </div>
   )
 }
