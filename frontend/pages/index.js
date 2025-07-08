@@ -15,9 +15,9 @@ export default function Home() {
   }, [])
 
   return (
-    <div className={styles.container}>
+    <div>
       <NewRapper reload={fetchrappers} />
-      {rappers.map((todo) => (
+      {rapper.map((todo) => (
         <p key={rapper.id}>{rapper.name}</p>
       ))}
     </div>
